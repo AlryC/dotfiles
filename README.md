@@ -7,6 +7,7 @@ fastfetch
 picom
 maim
 xclip
+firacode-ttf
 
 linux-lts (for thinkpad)
 
