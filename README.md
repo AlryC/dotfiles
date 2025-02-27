@@ -22,6 +22,10 @@ cd dotfiles
 stow .
 ```
 
+#### XFCE
+xfce overrides symlinks so use `stow . --adopt` in `dofiles` folder to back up configuration each time you change xfce configs with xfce graphic tools.
+**WARNING** Use this command only after you removed all default configs, because it will overwrite the dot files
+
 #### Colorscheme
 Darkside
 
