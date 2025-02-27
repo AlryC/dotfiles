@@ -1,15 +1,15 @@
-#### Don't forget these packagesl:
+#### Don't forget these packages:
 ```
 git
 stow
-kitty
+kitty (download from github)
 fastfetch
-picom
+picom (xfce has its own compositor out of the box)
 maim
 xclip
 firacode-ttf
 
-linux-lts (for thinkpad)
+linux-lts (for thinkpad (on arch(sometimes)))
 
 firefox (debloat with https://github.com/yokoffing/BetterFox)
 ```
