@@ -3,15 +3,17 @@
 git
 stow
 kitty (download from github)
+fish
 fastfetch
-picom (xfce has its own compositor out of the box)
+picom
 maim
 xclip
 firacode-ttf
 
 linux-lts (for thinkpad (on arch(sometimes)))
 
-firefox (debloat with https://github.com/yokoffing/BetterFox)
+<<<firefox (debloat with https://github.com/yokoffing/BetterFox)
+librewolf
 ```
 
 #### Setup configs:
@@ -27,7 +29,7 @@ xfce overrides symlinks so use `stow . --adopt` in `dofiles` folder to back up c
 **WARNING** Use this command only after you removed all default configs, because it will overwrite the dot files
 
 #### Colorscheme
-Darkside
+Duskbloom
 
 #### Vim
 - install vim-plug `curl -fLo ~/.vim/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
