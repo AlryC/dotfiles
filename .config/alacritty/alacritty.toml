@@ -1,0 +1,47 @@
+[window]
+
+dimensions.columns = 105
+dimensions.lines = 28
+
+opacity = 0.75
+
+padding.x = 3
+padding.y = 3
+
+decorations = "None"
+decorations_theme_variant = "Dark"
+
+[font]
+
+normal.family = "FiraCode Nerd Font Mono Med"
+
+size = 8.5
+
+[terminal]
+shell = "fish"
+
+[colors]
+[colors.primary]
+foreground = "#c0c5ce"
+background = "#020914"
+#cursor                #c0c5ce
+#selection_background  #96b5b4
+#selection_foreground  #cccccc
+[colors.normal]
+black   = "#2b303b"
+red     = "#bf616a"
+green   = "#a3be8c"
+yellow  = "#ebcb8b"
+blue    = "#8fa1b3"
+magenta = "#b48ead"
+cyan    = "#96b5b4"
+white   = "#c0c5ce"
+[colors.bright]
+black   = "#65737e"
+red     = "#bf616a"
+green   = "#a3be8c"
+yellow  = "#ebcb8b"
+blue    = "#8fa1b3"
+magenta = "#b48ead"
+cyan    = "#96b5b4"
+white   = "#eff1f5"

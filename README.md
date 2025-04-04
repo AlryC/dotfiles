@@ -2,7 +2,8 @@
 ```
 git
 stow
-kitty (download from github)
+neovim
+alacritty
 fish
 fastfetch
 picom
@@ -24,13 +25,13 @@ cd dotfiles
 stow .
 ```
 
-#### XFCE
-xfce overrides symlinks so use `stow . --adopt` in `dofiles` folder to back up configuration each time you change xfce configs with xfce graphic tools.
+#### Overrided symlinks
+xfce overrides symlinks. To deal with it use `stow . --adopt` in `dofiles` folder to back up configuration each time you change xfce configs with xfce graphic tools.
 **WARNING** Use this command only after you removed all default configs, because it will overwrite the dot files
 
 #### Colorscheme
 Duskbloom
 
-#### Vim
+#### Vim (just use neovim it's better)
 - install vim-plug `curl -fLo ~/.vim/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
 - install vim plugins `:PlugInstall`
