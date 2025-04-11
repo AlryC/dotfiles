@@ -3,3 +3,4 @@
 -- Add any additional options here
 vim.g.minipairs_disable = true
 vim.o.startofline = true
+vim.g.autoformat = false

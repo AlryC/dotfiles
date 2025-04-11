@@ -5,8 +5,8 @@ dimensions.lines = 28
 
 opacity = 0.75
 
-padding.x = 3
-padding.y = 3
+padding.x = 0
+padding.y = 0
 
 decorations = "None"
 decorations_theme_variant = "Dark"
