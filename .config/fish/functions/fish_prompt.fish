@@ -17,17 +17,17 @@ function fish_prompt
 
     # Prompt path segment
     set pwd_result = (prompt_pwd)
-    set_color --bold -b purple black
+    set_color --bold -b cyan black
     if [ "$pwd_result" = "= ~" ]
         echo -n ' /home/alry/ '
     else
         echo -n ' '(prompt_pwd)' '
     end
-    set_color -b black purple
+    set_color -b black cyan
     echo -n ''
 
     # Return code color
-    set -l retc red
+    set -l retc cyan
     test $status = 0; and set retc green
 
     # Date/time
@@ -61,7 +61,7 @@ function fish_prompt
     end
 
     # Final ❯
-    set_color red
+    set_color blue
     echo -n '❯ '
     set_color normal
 end

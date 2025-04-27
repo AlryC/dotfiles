@@ -11,8 +11,8 @@ if status is-interactive
 
     abbr -a code code-oss
 
-    abbr -a cfa  nvim ~/.config/alacritty/alacritty.toml
-    abbr -a cfaw nvim ~/.config/awesome/rc.lua
+    abbr -a cfal nvim ~/.config/alacritty/alacritty.toml
+    abbr -a cfa  nvim ~/.config/awesome/rc.lua
     abbr -a cfb  nvim ~/.bashrc
     abbr -a cffa nvim ~/.config/fastfetch/config.jsonc
     abbr -a cff  nvim ~/.config/fish/config.fish
@@ -20,12 +20,17 @@ if status is-interactive
     abbr -a cfv  nvim ~/.vimrc
     abbr -a cfx  nvim ~/.xinitrc
 
+    abbr -a obv  nvim ~/obsidian_vault/
+
     abbr -a xi sudo xbps-install
     abbr -a xq xbps-query
     abbr -a xrr sudo xbps-remove
 
     abbr -a n nvim
-    abbr -a sn sudo nvim
+    abbr -a r ranger
 
+    abbr -a sn sudo nvim
+    
+    abbr -a love ~/apps/love-11.5-x86_64.AppImage
     abbr -a weather curl wttr.in
 end
