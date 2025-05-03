@@ -20,6 +20,9 @@ picom &
 pipewire &
 dunst &
 
+# Start kmonad
+# sudo kmonad /home/alry/.config/kmonad.kbd &
+
 if [ "$wm" = "dwm" ]; then
     while true; do
 	    dbus-run-session -- dwm 2> ~/.dwm.log # Log stderr

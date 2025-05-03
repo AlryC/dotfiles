@@ -6,7 +6,7 @@ function fish_mode_prompt
             set bg blue
             set char ' I '
         case default
-            set bg black
+            set bg brblack
             set fg white
             set char ' N '
         case replace_one replace
@@ -20,7 +20,7 @@ function fish_mode_prompt
     set_color --bold -b $bg $fg
     echo -n $char
 
-    set_color --bold -b cyan $bg
+    set_color -b cyan $bg
     echo -n ''
 
     set_color normal

@@ -180,7 +180,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6" }, s, awful.layout.layouts[1])
+    awful.tag({ "", "", "", "", "", "󰑌" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -203,7 +203,7 @@ awful.screen.connect_for_each_screen(function(s)
                     },
                     widget = wibox.container.place, -- centers text horizontally
                 },
-                forced_width = 40,                 -- ✅ THIS sets tag width
+                forced_width = 50,                 -- ✅ THIS sets tag width
                 widget = wibox.container.background,
                 id = 'background_role',
                 shape = gears.shape.rounded_bar,   -- optional: pill style
@@ -237,7 +237,7 @@ awful.screen.connect_for_each_screen(function(s)
     -- Create a textbox widget which will contain an icon indicating which layout we're using.
     s.mylayouttext = wibox.widget {
         widget = wibox.widget.textbox,
-        text = " ><> ",
+        markup = not_mono("   "),
     }
     s.mylayouttext:buttons(gears.table.join(
                            awful.button({ }, 1, function () awful.layout.inc( 1) end),
@@ -438,13 +438,13 @@ awful.screen.connect_for_each_screen(function(s)
     local function update_layouttext(t)
         local layout = awful.layout.getname(t.layout)
         local layout_names = {
-            floating = " ><> ",
-            tile     = " =[] ",
-            fairv    = " ¦¦¦ ",
+            floating = not_mono("   "),
+            tile     = not_mono("   "),
+            fairv    = not_mono("   "),
         }
         local text = layout_names[layout] or layout
         if t.screen and t.screen.mylayouttext then
-            t.screen.mylayouttext.text = text
+            t.screen.mylayouttext.markup = text
         end
     end
 
@@ -558,10 +558,10 @@ globalkeys = gears.table.join(
               {description = "set floating layout for tag", group = "client"}),
     awful.key({ modkey }, "t", function () awful.screen.focused().selected_tag.layout = awful.layout.suit.tile end,
               {description = "set tiling layout for tag", group = "client"}),
+
     -- (Un)hide status bar widgets
     awful.key({ modkey }, "h", function () ToggleWidgets() end,
               {description = "set tiling layout for tag", group = "client"}),
-
 
     -- Select Wallpaper
     awful.key({ modkey, "Shift" }, "w", function () os.execute("~/suckless/assets/scripts/dt-wallpaper-select.sh") end,
@@ -571,6 +571,7 @@ globalkeys = gears.table.join(
               {description = "make a screenshot", group = "launcher"})
 )
 
+-- CLIENT KEY SHORTCUTS
 clientkeys = gears.table.join(
     awful.key({ modkey,           }, "g",
         function (c)

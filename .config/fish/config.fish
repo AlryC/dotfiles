@@ -16,16 +16,17 @@ if status is-interactive
     abbr -a cfb  nvim ~/.bashrc
     abbr -a cffa nvim ~/.config/fastfetch/config.jsonc
     abbr -a cff  nvim ~/.config/fish/config.fish
-    abbr -a cfk  nvim ~/.config/kitty/kitty.conf
+    abbr -a cfk  nvim ~/.config/kmonad.kbd
     abbr -a cfv  nvim ~/.vimrc
     abbr -a cfx  nvim ~/.xinitrc
 
-    abbr -a obv  nvim ~/obsidian_vault/
+    abbr -a obv  nvim ~/Data/obsidian_vault/
 
     abbr -a xi sudo xbps-install
     abbr -a xq xbps-query
     abbr -a xrr sudo xbps-remove
-
+    
+    abbr -a a ' aichat' # leading space to not save it in history
     abbr -a n nvim
     abbr -a r ranger
 

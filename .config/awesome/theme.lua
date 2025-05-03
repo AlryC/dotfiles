@@ -13,6 +13,8 @@ local home_path = os.getenv("HOME") .. "/"
 local theme = {}
 
 theme.font          = "FiraCode Nerd Font Mono 14"
+theme.taglist_font  = "FiraCode Nerd Font Mono 22"
+
 
 theme.bg_normal     = "#1d2021" -- bg0_h
 theme.bg_focus      = "#689d6a" -- aqua6
