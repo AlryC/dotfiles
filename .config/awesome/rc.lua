@@ -313,7 +313,7 @@ awful.screen.connect_for_each_screen(function(s)
     end
     -- Make it clickable
     s.mywifi:buttons(gears.table.join( -- add wifi select rofi widget on left click
-        --awful.button({ }, 1, function () awful.layout.inc( 1) end),
+        awful.button({ }, 1, function () os.execute(home_path .. ".assets/scripts/sb-wifi-select.sh") end),
         awful.button({ }, 3, function () s.mywifi.hidden = not s.mywifi.hidden update_wifi() end)
     ))
     -- Timer to refresh

@@ -28,6 +28,7 @@ if status is-interactive
     
     abbr -a a ' aichat' # leading space to not save it in history
     abbr -a n nvim
+    abbr -a k NVIM_APPNAME="kvim" nvim
     abbr -a r ranger
 
     abbr -a sn sudo nvim
