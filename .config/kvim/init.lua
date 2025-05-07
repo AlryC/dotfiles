@@ -165,13 +165,6 @@ vim.opt.scrolloff = 10
 vim.opt.confirm = true
 
 -- [[ Basic Keymaps ]]
--- Neo-tree
--- Open neo-tree
-vim.keymap.set('n', '<leader>tt', ':Neotree toggle<CR>', { noremap = true, silent = true })
--- Focus to neo-tree
-vim.keymap.set('n', '<leader>e', ':Neotree focus<CR>', { noremap = true, silent = true })
---  See `:help vim.keymap.set()`
-
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -298,6 +291,10 @@ require('lazy').setup({
     opts = {
       -- fill any relevant options here
     },
+  },
+  -- Startify (startup text)
+  {
+    'mhinz/vim-startify',
   },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
@@ -859,7 +856,7 @@ require('lazy').setup({
         -- See :h blink-cmp-config-keymap for defining your own keymap
         preset = 'default',
 
-        ['<C-Enter>'] = { 'select_and_accept' },
+        ['<Enter>'] = { 'select_and_accept', 'fallback' },
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
       },
@@ -1035,7 +1032,61 @@ require('lazy').setup({
   },
 })
 
--- Custom
+-- Ide-Motions
+-- Helpers
+local function force_focus_term()
+  local terminal_buf = nil
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_get_option(buf, 'buftype') == 'terminal' then
+      terminal_buf = buf
+      break
+    end
+  end
+
+  -- If a terminal is found, switch to it
+  if terminal_buf then
+    vim.api.nvim_set_current_buf(terminal_buf)
+  else
+    vim.cmd '7split' -- Create a split
+    vim.cmd 'terminal' -- Open term
+    vim.cmd 'startinsert' -- Start in insert mode
+  end
+end
+
+local function toggle_focus_term()
+  local buf = vim.api.nvim_get_current_buf()
+  local buftype = vim.api.nvim_buf_get_option(buf, 'buftype')
+  if buftype == 'terminal' then -- if term is active
+    vim.cmd 'bd!'
+  elseif buftype == 'nofile' then -- if neo-tree is active
+  else -- if main is active
+    force_focus_term()
+  end
+end
+
+-- Terminal
+vim.keymap.set({ 'n', 't' }, '<leader><Enter>', toggle_focus_term, { desc = 'Switch between term & main', noremap = true, silent = false })
+
+-- Neo-tree
+-- Open neo-tree
+vim.keymap.set({ 'n', 't' }, '<leader>tt', ':Neotree toggle<CR>', { noremap = true, silent = true })
+-- Focus to neo-tree
+vim.keymap.set({ 'n', 't' }, '<leader>e', ':Neotree focus<CR>', { noremap = true, silent = true })
+--  See `:help vim.keymap.set()`
+
+-- Temporarely suppress all cannot reslove type errors for jdtls (it sees it but says that it doesn't see it)
+vim.lsp.handlers['textDocument/publishDiagnostics'] = function(_, result, ctx, config)
+  local filtered = {}
+  for _, diagnostic in ipairs(result.diagnostics) do
+    if not diagnostic.message:match 'cannot be resolved to a type' then
+      table.insert(filtered, diagnostic)
+    end
+  end
+  result.diagnostics = filtered
+  vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+end
+
+-- Custom vim script
 
 vim.cmd [[
   set tabstop=4

@@ -18,7 +18,6 @@ setxkbmap -layout pl,ru -option 'grp:alt_caps_toggle' -option caps:escape
 
 picom &
 pipewire &
-dunst &
 
 # Start kmonad
 # sudo kmonad /home/alry/.config/kmonad.kbd &

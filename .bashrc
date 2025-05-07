@@ -32,3 +32,7 @@ alias xrr='sudo xbps-remove'
 PS1='\[\e[0;35m\][\[\e[0;33m\]\u\[\e[0;35m\]@\[\e[0;33m\]\h\[\e[0;33m\] \W\[\e[0;35m\]]\[\e[0;37m\]\$ \[\e[0;m\]'
 
 . "$HOME/.local/bin/env"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
