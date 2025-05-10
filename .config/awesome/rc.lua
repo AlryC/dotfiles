@@ -12,7 +12,7 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
-local menubar = require("menubar")
+-- local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local home_path = os.getenv("HOME") .. "/"
 -- Enable hotkeys help widget for VIM and other apps
@@ -117,7 +117,7 @@ local mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.
 --                                     menu = mymainmenu })
 
 -- Menubar configuration
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
+-- menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
 -- Create a wibox for each screen and add it
@@ -550,8 +550,9 @@ globalkeys = gears.table.join(
               end,
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
-    awful.key({ modkey }, "p", function () menubar.show() end,
-              {description = "show the menubar", group = "launcher"}),
+    awful.key({ modkey }, "p", function ()
+        os.execute("dmenu_run -hp anki,librewolf,obsidian,telegram-desktop,code-oss,stm32cubeide,stm32cubeprg,intellij") end,
+              {description = "Run dmenu", group = "launcher"}),
     -- Custom
     -- Toggle Modes
     awful.key({ modkey }, "f", function () awful.screen.focused().selected_tag.layout = awful.layout.suit.floating end,

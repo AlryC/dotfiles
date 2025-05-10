@@ -20,7 +20,7 @@ if status is-interactive
     abbr -a cfv  nvim ~/.vimrc
     abbr -a cfx  nvim ~/.xinitrc
 
-    abbr -a obv  nvim ~/Data/obsidian_vault/
+    abbr -a obv  nvim ~/Documents/obsidian_vault/
 
     abbr -a xi sudo xbps-install
     abbr -a xq xbps-query
