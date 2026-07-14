@@ -1,89 +1,3 @@
---[[
-
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-========                                    .-----.          ========
-========         .----------------------.   | === |          ========
-========         |.-""""""""""""""""""-.|   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||   KICKSTART.NVIM   ||   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||                    ||   |-----|          ========
-========         ||:Tutor              ||   |:::::|          ========
-========         |'-..................-'|   |____o|          ========
-========         `"")----------------(""`   ___________      ========
-========        /::::::::::|  |::::::::::\  \ no mouse \     ========
-========       /:::========|  |==hjkl==:::\  \ required \    ========
-========      '""""""""""""'  '""""""""""""'  '""""""""""'   ========
-========                                                     ========
-=====================================================================
-=====================================================================
-
-What is Kickstart?
-
-  Kickstart.nvim is *not* a distribution.
-
-  Kickstart.nvim is a starting point for your own configuration.
-    The goal is that you can read every line of code, top-to-bottom, understand
-    what your configuration is doing, and modify it to suit your needs.
-
-    Once you've done that, you can start exploring, configuring and tinkering to
-    make Neovim your own! That might mean leaving Kickstart just the way it is for a while
-    or immediately breaking it into modular pieces. It's up to you!
-
-    If you don't know anything about Lua, I recommend taking some time to read through
-    a guide. One possible example which will only take 10-15 minutes:
-      - https://learnxinyminutes.com/docs/lua/
-
-    After understanding a bit more about Lua, you can use `:help lua-guide` as a
-    reference for how Neovim integrates Lua.
-    - :help lua-guide
-    - (or HTML version): https://neovim.io/doc/user/lua-guide.html
-
-Kickstart Guide:
-
-  TODO: The very first thing you should do is to run the command `:Tutor` in Neovim.
-
-    If you don't know what this means, type the following:
-      - <escape key>
-      - :
-      - Tutor
-      - <enter key>
-
-    (If you already know the Neovim basics, you can skip this step.)
-
-  Once you've completed that, you can continue working through **AND READING** the rest
-  of the kickstart init.lua.
-
-  Next, run AND READ `:help`.
-    This will open up a help window with some basic information
-    about reading, navigating and searching the builtin help documentation.
-
-    This should be the first place you go to look when you're stuck or confused
-    with something. It's one of my favorite Neovim features.
-
-    MOST IMPORTANTLY, we provide a keymap "<space>sh" to [s]earch the [h]elp documentation,
-    which is very useful when you're not exactly sure of what you're looking for.
-
-  I have left several `:help X` comments throughout the init.lua
-    These are hints about where to find more information about the relevant settings,
-    plugins or Neovim features used in Kickstart.
-
-   NOTE: Look for lines like this
-
-    Throughout the file. These are for you, the reader, to help you understand what is happening.
-    Feel free to delete them once you know what you're doing, but they should serve as a guide
-    for when you are first encountering a few different constructs in your Neovim config.
-
-If you experience any errors while trying to install kickstart, run `:checkhealth` for more info.
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now! :)
---]]
-
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -163,6 +77,95 @@ vim.opt.scrolloff = 10
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
 vim.opt.confirm = true
+
+-- [[ Daily Note functionality ]]
+local function open_daily_note()
+  local date = os.date '%Y-%m-%d'
+  local dir = vim.fn.expand '~/Documents/obsidian_vault/Дневник'
+  local file = dir .. '/' .. date .. '.md'
+
+  -- ensure directory exists
+  if vim.fn.isdirectory(dir) == 0 then
+    vim.fn.mkdir(dir, 'p')
+  end
+
+  -- open (creates if missing)
+  vim.cmd('edit ' .. vim.fn.fnameescape(file))
+end
+
+vim.keymap.set('n', '<leader><Up>', open_daily_note, {
+  desc = "Open today's daily note",
+})
+
+local notes_dir = vim.fn.expand '~/Documents/obsidian_vault/Дневник'
+
+local function get_all_notes()
+  local files = vim.fn.glob(notes_dir .. '/*.md', false, true)
+  local dates = {}
+
+  for _, file in ipairs(files) do
+    local name = vim.fn.fnamemodify(file, ':t')
+    local date = name:match '(%d%d%d%d%-%d%d%-%d%d)'
+    if date then
+      table.insert(dates, date)
+    end
+  end
+
+  table.sort(dates)
+  return dates
+end
+
+local function get_current_date()
+  local filename = vim.fn.expand '%:t'
+  return filename:match '(%d%d%d%d%-%d%d%-%d%d)'
+end
+
+local function open_note(date)
+  local file = notes_dir .. '/' .. date .. '.md'
+  vim.cmd('edit ' .. vim.fn.fnameescape(file))
+end
+
+local function navigate_note(direction)
+  local current = get_current_date()
+  if not current then
+    print 'Not a daily note'
+    return
+  end
+
+  local notes = get_all_notes()
+
+  for i, date in ipairs(notes) do
+    if date == current then
+      if direction == 'prev' and i > 1 then
+        open_note(notes[i - 1])
+        return
+      elseif direction == 'next' and i < #notes then
+        open_note(notes[i + 1])
+        return
+      end
+    end
+  end
+
+  print('No ' .. direction .. ' note found')
+end
+
+vim.api.nvim_create_autocmd({ 'VimEnter' }, {
+  callback = function()
+    vim.schedule(function()
+      vim.cmd 'Neotree'
+      open_daily_note()
+    end)
+  end,
+})
+
+-- Keymaps
+vim.keymap.set('n', '<leader><Left>', function()
+  navigate_note 'prev'
+end, { desc = 'Previous existing daily note' })
+
+vim.keymap.set('n', '<leader><Right>', function()
+  navigate_note 'next'
+end, { desc = 'Next existing daily note' })
 
 -- [[ Basic Keymaps ]]
 -- Clear highlights on search when pressing <Esc> in normal mode
@@ -295,6 +298,10 @@ require('lazy').setup({
   -- Startify (startup text)
   {
     'mhinz/vim-startify',
+  },
+  -- Obsidian.nvim
+  {
+    'epwalsh/obsidian.nvim',
   },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
@@ -1068,10 +1075,17 @@ end
 vim.keymap.set({ 'n', 't' }, '<leader><Enter>', toggle_focus_term, { desc = 'Switch between term & main', noremap = true, silent = false })
 
 -- Neo-tree
--- Open neo-tree
-vim.keymap.set({ 'n', 't' }, '<leader>tt', ':Neotree toggle<CR>', { noremap = true, silent = true })
+-- Toggle neo-tree
+vim.keymap.set({ 'n', 't' }, '<leader>e', function()
+  if vim.bo.filetype == 'neo-tree' then
+    vim.cmd 'wincmd p'
+  else
+    vim.cmd 'Neotree focus'
+  end
+end, { noremap = true, silent = true, desc = 'Toggle Neo-tree focus' })
+-- vim.keymap.set({ 'n', 't' }, '<leader>e', ':Neotree toggle<CR>', { noremap = true, silent = true })
 -- Focus to neo-tree
-vim.keymap.set({ 'n', 't' }, '<leader>e', ':Neotree focus<CR>', { noremap = true, silent = true })
+vim.keymap.set({ 'n', 't' }, '<leader>tt', ':Neotree focus<CR>', { noremap = true, silent = true })
 --  See `:help vim.keymap.set()`
 
 -- Temporarely suppress all cannot reslove type errors for jdtls (it sees it but says that it doesn't see it)

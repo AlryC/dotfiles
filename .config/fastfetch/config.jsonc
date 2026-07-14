@@ -95,17 +95,12 @@
         },
         {
             "type": "terminalfont",
-            "key": "└ └",
+            "key": "│ ├",
             "keyColor": "blue"
         },
         {
             "type": "cursor",
-            "key": "│ ├󰆿",
-            "keyColor": "blue"
-        },
-        {
-            "type": "icons",
-            "key": "└ └",
+            "key": "└ └󰆿",
             "keyColor": "blue"
         },
         {

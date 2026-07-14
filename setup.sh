@@ -5,7 +5,6 @@
 
 mkdir -p "$HOME/.assets/"
 mkdir -p "$HOME/.config/"
-# mkdir -p "$HOME/.config/"
 
 cd "$HOME/dotfiles/"
 stow .
